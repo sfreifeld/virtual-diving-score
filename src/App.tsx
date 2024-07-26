@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Rectangle } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import InstructionalModal from './components/InstructionalModal';
+import CompletionModal from './components/CompletionModal';
 
 const App: React.FC = () => {
-  // Initialize state for all dives
-  const [dives, setDives] = useState([
+  const initialDives = [
     { name: 'Dive 1', video: 'dive1.mp4', diver:'Kawan Figuerdo Pereira', country:'Brazil 🇧🇷', olympics:'Tokyo 2020', userInputScore: 0, userInputDifficulty: 0, actualScore: 0, actualDifficulty: 0, barChartVisibility: false},
     { name: 'Dive 2', video: 'dive2.mp4', diver:'Chen Aisen', country:'China 🇨🇳', olympics:'Rio 2016', userInputScore: 0, userInputDifficulty: 0, actualScore: 0, actualDifficulty: 0, barChartVisibility: false},
     { name: 'Dive 3', video: 'dive3.mp4', diver:'Quan Hongchan', country:'China 🇨🇳 ', olympics:'Tokyo 2020', userInputScore: 0, userInputDifficulty: 0, actualScore: 0, actualDifficulty: 0, barChartVisibility: false},
     { name: 'Dive 4', video: 'dive4.mp4', diver:'Cassiel Rousseau', country:'Austrailia 🇦🇺', olympics:'Tokyo 2020', userInputScore: 0, userInputDifficulty: 0, actualScore: 0, actualDifficulty: 0, barChartVisibility: false}
-  ]);
+  ];
+
+  const [dives, setDives] = useState(initialDives);
 
   const [actualDives, setActualDives] = useState([
     { name: 'Dive 1', video: 'dive1.mp4', diver:'Kawan Figuerdo Pereira', country:'Brazil 🇧🇷', olympics:'Tokyo 2020', userInputScore: 0, userInputDifficulty: 0, actualScore: 6.5, actualDifficulty: 3.2, barChartVisibility: true},
@@ -19,7 +22,14 @@ const App: React.FC = () => {
 
   const [currentDiveIndex, setCurrentDiveIndex] = useState(0)
 
-  console.log(dives)
+  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [isCompletionModalOpen, setIsCompletionModalOpen] = useState(false);
+
+  const resetDives = () => {
+    setDives(initialDives);
+    setCurrentDiveIndex(0);
+    setIsCompletionModalOpen(false);
+  };
 
   const handleSubmit = () => {
     const updatedDives = dives.map((dive, index) => 
@@ -28,9 +38,9 @@ const App: React.FC = () => {
     setDives(updatedDives);
     if (currentDiveIndex < dives.length - 1) {
       setCurrentDiveIndex(currentDiveIndex + 1);
-      
     } else {
-      console.log('All dives scored!')
+      console.log('All dives scored!');
+      setIsCompletionModalOpen(true);
     }
   }
 
@@ -45,8 +55,33 @@ const App: React.FC = () => {
     setActualDives(updatedDives); // Assuming setActualDives is the setter from useState
   };
 
+  function calculateTotal(scores: { difficulty: number; execution: number }[]) {
+    return scores.reduce((total, dive) => total + dive.difficulty * dive.execution, 0);
+  }
+
+  const userScores = actualDives.map(dive => ({
+    difficulty: dive.userInputDifficulty,
+    execution: dive.userInputScore
+  }));
+
+  const userTotalScore = calculateTotal(userScores);
+  const accuracy = (100 - Math.abs((userTotalScore - 109.85) / 109.85) * 100).toFixed(2);
+
+
+
+  
+
   return (
     <div className="virtual-diving-judge">
+      <InstructionalModal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      />
+      <CompletionModal
+        isOpen={isCompletionModalOpen}
+        onRequestClose={resetDives}
+        score = {accuracy}
+      />
       <div className="main-content">
         <div className="inner-padding">
           <h1 className="title">DIVE RANKER</h1>
@@ -73,9 +108,9 @@ const App: React.FC = () => {
                 <label className="slider-label">Difficulty</label>
                 <input
                   type="range"
-                  min="0"
-                  max="10"
-                  step="0.5"
+                  min="1.2"
+                  max="4.8"
+                  step="0.1"
                   value= {actualDives[currentDiveIndex].userInputDifficulty}
                   onChange={(e) => updateDive(currentDiveIndex, 'userInputDifficulty', parseFloat(e.target.value))}
                   className="slider"
@@ -105,12 +140,12 @@ const App: React.FC = () => {
                 <BarChart data={dives} >
                   <XAxis dataKey="name" stroke="#ffffff" />
                   <YAxis stroke="#ffffff" />
-                  <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '8px' }} />
+                  <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '8px' }} wrapperStyle={{ fontWeight: 'bold' }} />
                   <Legend formatter={(value) => <strong>{value}</strong>} />
                       <Bar dataKey="userInputDifficulty" fill="#DDB8F4" name="User Difficulty"  />
                       <Bar dataKey="actualDifficulty" fill="#A666CD" name="Actual Difficulty" />
-                      <Bar dataKey="userInputScore" fill="#B1ECCD" name="User Score"  />
-                      <Bar dataKey="actualScore" fill="#25A663" name="Actual Score"  />
+                      <Bar dataKey="userInputScore" fill="#4FDE94" name="User Score"  />
+                      <Bar dataKey="actualScore" fill="#15864B" name="Actual Score"  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
