@@ -10,7 +10,7 @@ In this app, you'll watch amazing dive videos and rate them based on difficulty 
 To set up Dive Ranker locally, follow these steps:
 
 1. Clone the repository:
-``` git clone https://github.com/yourusername/virtual-diving-judge.git ```
+``` git clone https://github.com/sfreifeld/virtual-diving-judge.git ```
 
 2. Navigate to the project directory:
    ```cd virtual-diving-judge```
