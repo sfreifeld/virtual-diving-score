@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { throttle } from 'lodash';
 import InstructionalModal from './components/InstructionalModal';
 import CompletionModal from './components/CompletionModal';
 
@@ -59,15 +60,15 @@ const App: React.FC = () => {
   }
 
   // Function to update dive scores
-  const updateDive = (index: number, attribute: string, value: number | boolean) => {
+  const updateDive = useCallback(throttle((index: number, attribute: string, value: number | boolean) => {
     const updatedDives = actualDives.map((dive, i) => {
       if (i === index) {
         return { ...dive, [attribute]: value };
       }
       return dive;
     });
-    setActualDives(updatedDives); // Assuming setActualDives is the setter from useState
-  };
+    setActualDives(updatedDives);
+  }, 200), [actualDives]); // Adjust the throttle time (200ms) as needed
 
   function calculateTotal(scores: { difficulty: number; execution: number }[]) {
     return scores.reduce((total, dive) => total + dive.difficulty * dive.execution, 0);
