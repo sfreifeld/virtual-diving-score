@@ -1,30 +1,21 @@
-# React + TypeScript + Vite
+# Dive Ranker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Get ready to dive into the fun world of competitive diving, where you can judge like a pro! Whether you're an aspiring dive enthusiast or just looking to splash into some fun, DiveRanker is your go-to app for scoring dives and comparing your scores with the pros.
 
-Currently, two official plugins are available:
+In this app, you'll watch amazing dive videos and rate them based on difficulty and execution. Think you've got what it takes to match the experts? Compare your scores with actual judges' scores and see how you stack up!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To set up Dive Ranker locally, follow these steps:
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository:
+``` git clone https://github.com/yourusername/virtual-diving-judge.git ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+2. Navigate to the project directory:
+   ```cd virtual-diving-judge```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Install dependencies:
+   ```npm install```
+
+4. Run it: ```vite```
