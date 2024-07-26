@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import splashSound from '../assets/splash.mp3'; // Import the audio file
 
 interface Props {
   isOpen: boolean;
@@ -40,11 +41,13 @@ function createMarkup(description: string) {
 
 const InstructionModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const audioRef = React.useRef(new Audio(splashSound)); // Create a ref for the audio element
 
   const handleNext = () => {
     if (currentStep < modalContents.length) {
       setCurrentStep(currentStep + 1);
     } else {
+      audioRef.current.play(); // Play the sound effect
       onRequestClose(); // Close the modal when the last step is completed
     }
   };

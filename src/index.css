@@ -1,4 +1,4 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -41,24 +41,6 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -107,13 +89,6 @@ button:focus-visible {
   padding: 2rem;
 }
 
-.title {
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: white;
-}
 
 .grid {
   display: grid;
@@ -198,8 +173,13 @@ button:focus-visible {
   border: none;
   border-radius: 9999px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
+}
+
+.submit-button:hover {
+  background: #FCD34D;
+  color: #1E40AF;
 }
 
 .chart-container {
@@ -230,4 +210,78 @@ button:focus-visible {
   .grid {
     grid-template-columns: 1fr;
   }
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #646cff; /* Green background */
+  color: white; /* White text */
+  border: none; /* No borders */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  font-family: 'Poppins';
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #535bf2; /* Darker shade of green on hover */
+}
+
+.title {
+	position: relative;
+  left: 50%;
+  margin: 5px;
+  margin-bottom: 155px;
+
+  font-family: 'Poppins';
+  font-weight: 900 !important;
+}
+
+.title h1 {
+	color: #fff;
+	font-size: 6em;
+	position: absolute;
+	transform: translate(-50%, -50%);
+}
+
+.title h1:nth-child(1) {
+	color: transparent;
+	-webkit-text-stroke: 2px #0f60f8;
+}
+
+.title h1:nth-child(2) {
+	color: #0f60f8;
+	animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+	0%,
+	100% {
+		clip-path: polygon(
+			0% 45%,
+			16% 44%,
+			33% 50%,
+			54% 60%,
+			70% 61%,
+			84% 59%,
+			100% 52%,
+			100% 100%,
+			0% 100%
+		);
+	}
+
+	50% {
+		clip-path: polygon(
+			0% 60%,
+			15% 65%,
+			34% 66%,
+			51% 62%,
+			67% 50%,
+			84% 45%,
+			100% 46%,
+			100% 100%,
+			0% 100%
+		);
+	}
 }

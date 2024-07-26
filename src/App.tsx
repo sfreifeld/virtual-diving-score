@@ -26,7 +26,21 @@ const App: React.FC = () => {
   const [isCompletionModalOpen, setIsCompletionModalOpen] = useState(false);
 
   const resetDives = () => {
-    setDives(initialDives);
+    const resetDives = initialDives.map(dive => ({
+      ...dive,
+      userInputScore: 0,
+      userInputDifficulty: 0
+    }));
+    setDives(resetDives);
+  
+    // Reset actualDives to initial values but with userInput scores and difficulties reset to 0
+    const resetActualDives = actualDives.map(dive => ({
+      ...dive,
+      userInputScore: 0,
+      userInputDifficulty: 0
+    }));
+    setActualDives(resetActualDives);
+  
     setCurrentDiveIndex(0);
     setIsCompletionModalOpen(false);
   };
@@ -84,7 +98,10 @@ const App: React.FC = () => {
       />
       <div className="main-content">
         <div className="inner-padding">
-          <h1 className="title">DIVE RANKER</h1>
+          <div style={{ fontWeight: 900 }} className='title'>
+            <h1> DIVE RANKER</h1>
+            <h1> DIVE RANKER</h1>
+          </div>
           
           <div className="grid">
             {/* Video Player */}

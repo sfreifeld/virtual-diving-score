@@ -8,7 +8,7 @@ interface Props {
 }
 
 const modalContents = {
-  title: "Your Score",
+  title: "Congrats!",
   description: `<p>Your final score is <strong><score_placeholder>%</strong>!</p>
   <h3>Scoring Feedback </h3>
   <ul>
@@ -46,11 +46,26 @@ const InstructionModal: React.FC<Props> = ({ isOpen, onRequestClose, score }) =>
     onRequestClose();
   };
 
+  // Custom styles for the modal
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width: '50%', // Adjust width as needed
+      height: '60%' // Adjust height as needed
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Completion Modal"
+      style={customStyles} // Apply custom styles here
     >
       <h2>{modalContents.title}</h2>
       <p dangerouslySetInnerHTML={createMarkup(modalContents.description, score)}></p>
