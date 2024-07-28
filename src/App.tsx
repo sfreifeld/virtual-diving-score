@@ -1,3 +1,4 @@
+import './index.css';
 import React, { useState, useCallback } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { throttle } from 'lodash';
@@ -109,7 +110,8 @@ const App: React.FC = () => {
             <div>
               <div className="video-container">
                 <video controls width="100%" key={currentDiveIndex}>
-                  <source src={`/src/assets/${dives[currentDiveIndex].video}`} type="video/mp4" />
+                  {/* Change the source path to point to the public folder */}
+                  <source src={`${process.env.PUBLIC_URL}/videos/${dives[currentDiveIndex].video}`} type="video/mp4" />
                 </video>
               </div>
               <div className="details-container">
