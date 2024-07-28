@@ -109,9 +109,10 @@ const App: React.FC = () => {
             {/* Video Player */}
             <div>
               <div className="video-container">
-                <video controls width="100%" key={currentDiveIndex}>
+                <video controls width="100%" key={dives[currentDiveIndex].video}>
                   {/* Change the source path to point to the public folder */}
-                  <source src="/videos/dive1.mp4" type="video/mp4" />
+                  console.log(`${process.env.PUBLIC_URL}/videos/${dives[currentDiveIndex].video}`);
+                  <source src={`${process.env.PUBLIC_URL}/videos/${dives[currentDiveIndex].video}`} type="video/mp4" />
                 </video>
               </div>
               <div className="details-container">
